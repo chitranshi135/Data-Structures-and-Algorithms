@@ -1,31 +1,83 @@
 class Solution {
     public List<List<Integer>> queensAttacktheKing(int[][] queens, int[] king) {
-        Set<String> set = new HashSet();
-        List<List<Integer>> list = new LinkedList<>();
-        for(int[] q : queens)
-        {
-            String str = q[0] + "," + q[1];
-            set.add(str);
+        List<List<Integer>> ans = new ArrayList<>();
+        int[][] chessboard = new int[8][8];
+        for(int[] q : queens){
+            chessboard[q[0]][q[1]] = 1;
         }
-        
-        for(int i = -1; i <= 1; i++)
-        {
-            for(int j = -1; j <= 1; j++)
-            {
-                if(i == 0 && j == 0)
-                    continue;
-                int x = king[0], y = king[1];
-                 while (x + i >= 0 && x + i < 8 && y + j >= 0 && y + j < 8) {
-                    x += i;
-                    y += j;
-                    if (set.contains(x+","+y)) {
-                        list.add(Arrays.asList(x, y));
-                        break;
-                    }
-                }
+        //top
+        int i = king[0], j = king[1];
+        while(i >= 0){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
             }
+            i--;
         }
-        return list;
+        //down
+        i = king[0]; j = king[1];
+        while(i < 8){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            i++;
+        }
+        //left
+        i = king[0]; j = king[1];
+        while(j >= 0){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            j--;
+        }
+        //right
+        i = king[0]; j = king[1];
+        while(j < 8){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            j++;
+        }
+        //left-top
+        i = king[0]; j = king[1];
+        while(i >= 0 && j >= 0){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            i--; j--;
+        }
+        //left-down
+        i = king[0]; j = king[1];
+        while(i < 8 && j >= 0){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            i++; j--;
+        }
+        //right-top
+        i = king[0]; j = king[1];
+        while(i >= 0 && j < 8){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            i--; j++;
+        }
+        //right-down
+        i = king[0]; j = king[1];
+        while(i < 8 && j < 8){
+            if(chessboard[i][j] == 1) {
+                ans.add(List.of(i, j));
+                break;
+            }
+            i++; j++;
+        }
+        return ans;
     }
     
 }
