@@ -8,6 +8,7 @@ class Solution {
             {
                 if (grid2[i][j] == 1 && grid1[i][j] == 1) 
                 {
+                    //assume this is a subisland
                     flag = true;
                     dfs(grid2, grid1, i, j);
                     if(flag)
