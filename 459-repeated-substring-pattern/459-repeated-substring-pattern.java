@@ -7,10 +7,11 @@ class Solution {
             {
                 int n = l/i;
                 String part = s.substring(0, i);
-                String nstr = part;
-                for(int x = 2; x <= n; x++)
-                    nstr += part;
-                if(nstr.equals(s))
+                StringBuilder sb = new StringBuilder();
+                for(int j=0;j<n;j++) {
+                    sb.append(part);
+                }
+                if(sb.toString().equals(s)) 
                     return true;
             }
         }
