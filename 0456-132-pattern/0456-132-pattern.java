@@ -1,6 +1,7 @@
 class Solution {
     public boolean find132pattern(int[] arr) {
         int n = arr.length;
+        int[] a = Arrays.copyOf(arr, arr.length);
         int[] smallest = new int[n];
         int min = arr[0];
         smallest[0] = Integer.MIN_VALUE;
@@ -16,16 +17,14 @@ class Solution {
                 min = Math.min(min, arr[i]);
             }
         }
-        Stack<Integer> stack = new Stack<>();
-        //greatest of smaller ele to right
-        //this stack is descending order
-        for(int i = n-1; i >= 0; i--)
-        {
-            while(!stack.isEmpty() && stack.peek() <= smallest[i])
-                stack.pop();
-            if(!stack.isEmpty() && smallest[i] != Integer.MIN_VALUE && stack.peek() < arr[i])
+        for (int j = n - 1, k = n; j >= 0; j--) {
+            while(k < n && k > j && a[k] <= smallest[j])
+            {
+                k++;
+            }
+            if(k < n && smallest[j] != Integer.MIN_VALUE && a[k] < arr[j])
                 return true;
-            stack.push(arr[i]);
+            k = j;
         }
         return false;
     }
