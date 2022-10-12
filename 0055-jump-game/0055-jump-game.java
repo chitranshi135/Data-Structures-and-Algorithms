@@ -8,9 +8,9 @@ class Solution {
             {
                 last = i;
             }
+            if(last == 0)
+                return true;
         }
-        if(last == 0)
-            return true;
         return false;
     }
 }
