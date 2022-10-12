@@ -1,15 +1,15 @@
 class Solution {
     public boolean canJump(int[] nums) {
         int n = nums.length;
-        int last = n-1;
-        for(int i = n-1; i >= 0; i--)
+        int reach = 0;
+        for(int i = 0; i < n; i++)
         {
-            if(i+nums[i] >= last)
-            {
-                last = i;
-            }
-            if(last == 0)
+             if(reach >= n-1)
                 return true;
+            if(i <= reach && (i+nums[i]) >= reach)
+            {
+                reach = i+nums[i];
+            }
         }
         return false;
     }
