@@ -1,19 +1,25 @@
 class Solution {
     public int minDeletion(int[] nums) {
-        Stack<Integer> stack = new Stack<>();
         int n = nums.length;
-        int x = 0;
+        int size = 0;
+        int prev = -1;
         for(int i = 0; i < n; i++)
         {
-            if(x%2 == 1 && !stack.isEmpty() && stack.peek() == nums[i])
-                continue;
+            if(size % 2 == 1)
+            {
+                //prev index ws even
+                if(nums[i] != prev)
+                {
+                    prev = nums[i];
+                    size++;
+                }
+            }
             else
             {
-                stack.push(nums[i]);
-                x++;
+                prev = nums[i];
+                size++;
             }
         }
-        n = n-stack.size();
-        return stack.size()%2 == 0? n:n+1;
+        return size%2 == 0? n-size: n-size+1;
     }
 }
