@@ -1,33 +1,35 @@
-class Solution 
-{
-    public boolean canPartitionKSubsets(int[] nums, int k) 
-    {
-        int n=nums.length,sum=0,max=0;
-        for(int ele:nums)
-        {
-            sum+=ele;
-            max=Math.max(max,ele);
-        }
-        boolean[] vis=new boolean[n];
-        if(sum%k!=0||max>sum/k)
+class Solution {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        int tot = 0;
+        for(int x : nums)
+            tot += x;
+        if(tot % k != 0)
             return false;
-        return canPart(nums,0,k,0,sum/k,vis);
+        int s = tot/k;
+        boolean[] vis = new boolean[nums.length];
+        Arrays.sort(nums);
+        if(nums[nums.length-1] > s)
+            return false;
+        return dfs(nums, 0, s, nums.length-1, vis, k);
     }
-    public boolean canPart(int[] nums,int idx,int k,int sumSF,int tar,boolean []vis)
+    public boolean dfs(int[] nums, int curr, int target, int start, boolean[] vis, int k)
     {
-        if(k==0)return true;
-        if(sumSF>tar)return false;
-        if(tar==sumSF)
-            return canPart(nums,0,k-1,0,tar,vis);
-        boolean res=false;
-        for(int i=idx;i<nums.length;i++)
+        if(k == 0)
+            return true;
+        //subset is completed before reaching this element
+        //so we start a new subset
+        if(curr == target && dfs(nums, 0, target, nums.length-1, vis, k-1))
+            return true;
+        for(int i = start; i >= 0; i--)
         {
-            if(vis[i])
-                continue;
-            vis[i]=true;
-            res=res||canPart(nums,i+1,k,sumSF+nums[i],tar,vis);
-            vis[i]=false;
+            if(!vis[i] && nums[i]+curr <= target)
+            {
+                vis[i] = true;
+                if(dfs(nums, curr+nums[i], target, i-1, vis, k))
+                    return true;
+                vis[i] = false;
+            }
         }
-        return res;
+        return false;
     }
 }
