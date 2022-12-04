@@ -3,10 +3,10 @@ class Solution {
         int n = nums.length;
         if(n == 0)
             return 0;
-        long[] post = new long[n];
-        for(int i = n-2; i >= 0; i--)
+        long tot = 0;;
+        for(int i = n-1; i >= 0; i--)
         {
-            post[i] = post[i+1] + (long)nums[i+1];
+            tot = tot + (long)nums[i];
         }
         long min = Integer.MAX_VALUE;
         int pos = -1;
@@ -21,7 +21,7 @@ class Solution {
             if(i == n-1)
                 avg2 = 0;
             else
-                avg2 = post[i]/y;
+                avg2 = (tot-curr)/y;
             long diff = (avg1 > avg2) ? (avg1-avg2) : (avg2-avg1);
             if(diff < min)
             {
