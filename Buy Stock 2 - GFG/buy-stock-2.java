@@ -87,13 +87,45 @@ class GFG{
 // }
 
 //BOTTOM-UP APPROACH
+// class Solution{
+//     public long maximumProfit(long prices[], int N){
+//         long[][] dp = new long[N+1][2];
+//         // for(long row[]: dp)
+//         //     Arrays.fill(row,-1);
+//         dp[N][0] = 0;
+//         dp[N][1] = 0;
+//         for(int i = N-1; i >= 0; i--)
+//         {
+//             for(int prevBuy = 0; prevBuy <= 1; prevBuy++)
+//             {
+//                 long profit = 0;
+                
+//                 if(prevBuy == 1)
+//                 {
+//                     profit = Math.max(prices[i]+dp[i+1][0], dp[i+1][1]);
+//                 }
+//                 else
+//                 {
+//                     profit = Math.max(-1*prices[i]+dp[i+1][1], dp[i+1][0]);
+//                 }
+//                 dp[i][prevBuy] = profit;
+//             }
+//         }
+//         return dp[0][0];
+//     }
+// }
+
+
+//SPACE OPTIMISED
 class Solution{
     public long maximumProfit(long prices[], int N){
-        long[][] dp = new long[N+1][2];
+        long[] ahead = new long[2];
         // for(long row[]: dp)
         //     Arrays.fill(row,-1);
-        dp[N][0] = 0;
-        dp[N][1] = 0;
+        ahead[0] = 0;
+        ahead[1] = 0;
+        
+        long[] curr = new long[2];
         for(int i = N-1; i >= 0; i--)
         {
             for(int prevBuy = 0; prevBuy <= 1; prevBuy++)
@@ -102,15 +134,16 @@ class Solution{
                 
                 if(prevBuy == 1)
                 {
-                    profit = Math.max(prices[i]+dp[i+1][0], dp[i+1][1]);
+                    profit = Math.max(prices[i]+ahead[0], ahead[1]);
                 }
                 else
                 {
-                    profit = Math.max(-1*prices[i]+dp[i+1][1], dp[i+1][0]);
+                    profit = Math.max(-1*prices[i]+ahead[1], ahead[0]);
                 }
-                dp[i][prevBuy] = profit;
+                curr[prevBuy] = profit;
             }
+            ahead = curr;
         }
-        return dp[0][0];
+        return curr[0];
     }
 }
