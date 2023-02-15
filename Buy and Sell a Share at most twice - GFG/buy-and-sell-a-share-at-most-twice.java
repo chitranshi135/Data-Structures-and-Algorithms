@@ -124,7 +124,8 @@ class GFG {
 class Solution
 {
     public static int maxProfit(int n, int[] price) {
-        int[][][]  dp = new int[n+1][2][3];
+        int[][] ahead = new int[2][3];
+        int[][] curr = new int[2][3];
         // for(int i = 0; i < n; i++)
         // {
         //     for(int prevBuy = 0; prevBuy <= 1; prevBuy++)
@@ -150,17 +151,18 @@ class Solution
         
                     if(prevBuy == 0)
                     {
-                        profit = Math.max(-1*price[i]+dp[i+1][1][transaction], dp[i+1][0][transaction]);
+                        profit = Math.max(-1*price[i]+ahead[1][transaction], ahead[0][transaction]);
                     }
                     else
                     {
-                        profit = Math.max(price[i]+dp[i+1][0][transaction-1], dp[i+1][1][transaction]);
+                        profit = Math.max(price[i]+ahead[0][transaction-1], ahead[1][transaction]);
                     }
 
-                    dp[i][prevBuy][transaction] = profit;
+                    curr[prevBuy][transaction] = profit;
                 }
             }
+            ahead = curr;
         }
-        return dp[0][0][2];
+        return curr[0][2];
     }
 }
