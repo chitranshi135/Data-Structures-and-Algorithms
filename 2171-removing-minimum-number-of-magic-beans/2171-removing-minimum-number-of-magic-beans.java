@@ -1,17 +1,17 @@
 class Solution {
     public long minimumRemoval(int[] beans) {
         int n = beans.length;
-        long[] left = new long[n];
+        long tot = 0;
         Arrays.sort(beans);
-        for(int i = 1; i < n; i++)
-        {
-            left[i] = left[i-1] + beans[i-1];
-        }
+        for(int i = 0; i < n; i++)
+            tot += beans[i];
         long right = 0;
+        long left = 0;
         long min = Long.MAX_VALUE;
         for(int i = n-1; i >= 0; i--)
         {
-            long c = left[i] + (right - (long)(beans[i]*(n-i-1L)));
+            left = tot - beans[i] - right;
+            long c = left + (right - (long)(beans[i]*(n-i-1L)));
             min = Math.min(min, c);
             right += beans[i];
         }
