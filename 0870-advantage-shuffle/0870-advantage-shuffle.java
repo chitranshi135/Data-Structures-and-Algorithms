@@ -9,21 +9,20 @@ class Solution {
         }
         int[] ans = new int[n];
         Arrays.fill(ans, -1);
-        int i = n-1;
+        int high = n-1;
+        int low = 0;
         while(!pq.isEmpty())
         {
-            if(nums1[i] > nums2[pq.peek()])
+            int idx = pq.poll();
+            if(nums1[high] > nums2[idx])
             {
-                ans[pq.peek()] = nums1[i];
-                i--;
+                ans[idx] = nums1[high];
+                high--;
             }
-            pq.poll();
-        }
-        
-        for(int j = 0; j < n; j++)
-        {
-            if(ans[j] == -1)
-                ans[j] = nums1[i--];
+            else
+            {
+                ans[idx] = nums1[low++];
+            }
         }
         return ans;
     }
