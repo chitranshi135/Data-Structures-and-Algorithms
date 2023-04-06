@@ -2,14 +2,14 @@ class Solution {
     public int splitNum(int num) {
         char[] c = (String.valueOf(num)).toCharArray();
         Arrays.sort(c);
-        String n1 = "", n2 = "";
+        int num1 = 0, num2 = 0;
         for(int i = 0; i < c.length; i++)
         {
             if(i % 2 == 0)
-                n1 = n1 + c[i];
+                num1 = num1 * 10 + (c[i] - '0');
             else
-                n2 = n2 + c[i];
+                num2 = num2 * 10 + (c[i] - '0');
         }
-        return Integer.valueOf(n1)+Integer.valueOf(n2);
+        return num1+num2;
     }
 }
