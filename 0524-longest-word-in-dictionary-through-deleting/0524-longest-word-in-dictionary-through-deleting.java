@@ -1,6 +1,6 @@
 class Solution {
     public String findLongestWord(String s, List<String> dict) {
-        dict.sort((a,b)->(a.length()==b.length())?a.compareTo(b):b.length()-a.length());
+        Collections.sort(dict,(a,b)->(a.length()==b.length())?a.compareTo(b):b.length()-a.length());
         for(String w: dict)
         {
             int i = 0, j = 0;
