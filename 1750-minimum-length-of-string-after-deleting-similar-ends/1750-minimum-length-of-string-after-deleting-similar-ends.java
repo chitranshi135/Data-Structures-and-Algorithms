@@ -16,20 +16,12 @@ class Solution {
                 i++;
                 l++;
             }
-            if(l > 0)
-                i--;
-            r += l;
-            l = 0;
-            while(j > i && c[j] == ch)
+            while(j >= i && c[j] == ch)
             {
                 l++;
                 j--;
             }
-            if(l > 0)
-                j++;
             r += l;
-            i++;
-            j--;
         }
         return n-r;
     }
