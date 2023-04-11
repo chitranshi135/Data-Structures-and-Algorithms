@@ -1,24 +1,23 @@
 class Solution {
     public int maximumGroups(int[] grades) {
-        Arrays.sort(grades);
-        int prevSum = 0, groups = 0;
+        //when array is sorted, then the next groups will have 
+        //elements that are either larger or equal but since the
+        //number of elements is greater, their sum will always be greater
+        //even when length is increased only by 1
+        
+        //so we need to find the number of groups we can make
+        //such that lengths are like-1,2,3 and so on
+        //we need to find k such that k*(k+1)/2 is less than or equal to grades.length
+        
+        int tot = 0, k = 0;
+        //k is the length of group
+        //ith group has length i
         int n = grades.length;
-        int s = 0;
-        int i = 0, j = 0;
-        int prevL = 0;
-        while(j < n)
+        while(tot+k+1 <= n)
         {
-            s += grades[j];
-            if(j-i+1 > prevL && s > prevSum)
-            {
-                groups++;
-                prevL = j-i+1;
-                prevSum = s;
-                i = j+1;
-                s = 0;
-            }
-            j++;
+            k++;
+            tot += k;
         }
-        return groups;
+        return k;
     }
 }
