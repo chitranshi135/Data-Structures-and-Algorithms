@@ -4,41 +4,58 @@ class Solution {
         if(num < 0)
             neg = true;
         num = Math.abs(num);
-        char[] c = (String.valueOf(num)).toCharArray();
+        int[] f = new int[10];
+        while(num > 0)
+        {
+            f[(int)(num%10)]++;
+            num = num/10;
+        }
         int i;
-        long n;
-        Arrays.sort(c);
+        long n = 0;
         if(!neg)
         {
-            i = 0;
-            int zeros = 0;
-            while(i < c.length && c[i] == '0')
+            i = 1;
+            while(i < 10)
             {
-                i++;
-                zeros++;
+                if(f[i] != 0)
+                {
+                    n = i;
+                    f[i]--;
+                    while(f[0] > 0)
+                    {
+                        n = n*10;
+                        f[0]--;
+                    }
+                    break;
+                }
+                else
+                    i++;
             }
-            System.out.println(i+" "+zeros);
-            if(i == c.length)
-                return 0L;
-            n = c[i++]-'0';
-            while(zeros > 0)
+            i = 1;
+            while(i < 10)
             {
-                n = n*10;
-                zeros--;
-            } 
-            for(; i < c.length; i++)
-            {
-                n = n*10 + c[i]-'0';
+                while(f[i] > 0)
+                {
+                    n = n*10 + i;
+                    f[i]--;
+                }
+                i++;
             }
         }
         else
         {
             n = 0;
-            for(i = c.length-1; i >= 0; i--)
+            i = 9;
+            while(i >= 0)
             {
-                n = n*10 + c[i]-'0';
+                while(f[i] > 0)
+                {
+                    n = n*10 + i;
+                    f[i]--;
+                }
+                i--;
             }
-            n *= -1;
+            n = n*-1;
         }
         return n;
     }
