@@ -6,21 +6,21 @@ class Solution {
         String[] comb = new String[] {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> ans = new ArrayList<>();
         
-        combine(comb, "", digits.toCharArray(), ans);
+        combine(ans, digits.toCharArray(), "", comb);
         return ans;
     }
     
-    public void combine(String[] comb, String prefix, char[] digits, List<String> ans) {
+    public void combine(List<String> ans, char[] digits, String prefix, String[] comb) {
         if(prefix.length() == digits.length)
         {
             ans.add(prefix);
             return;
         }
         int idx = prefix.length();
-        String chars = comb[digits[idx]-'0'];
-        for(char ch : chars.toCharArray())
+        int digit = digits[idx]-'0';
+        for(char ch : comb[digit].toCharArray())
         {
-            combine(comb, prefix+ch, digits, ans);
+            combine(ans, digits, prefix+Character.toString(ch), comb);
         }
     }
 
