@@ -1,24 +1,20 @@
+//time test
 class Solution {
-    final String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     public List<String> letterCombinations(String digits) {
-        List<String> ans = new ArrayList<>();
-        if(digits.length() == 0)
-            return ans;
-        combine("", digits, 0, ans);
-        return ans;
+        if (digits.length() == 0) return new ArrayList<>();
+        
+        String[] dict = new String[] {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+        List<String> combos = new ArrayList<>();
+        backtrack(combos, digits.toCharArray(), "", dict);
+        return combos;
     }
     
-    public void combine(String prefix, String digits, int idx, List<String> ans) {
-        if(idx >= digits.length())
-        {
-            ans.add(prefix);
-            return;
-        }
-        String chars = comb[digits.charAt(idx)-'0'];
-        for(int i = 0; i < chars.length(); i++)
-        {
-            combine(prefix+chars.charAt(i), digits, idx+1, ans);
+    public void backtrack(List<String> combos, char[] digits, String s, String[] dict) {
+        if (s.length() == digits.length) { combos.add(s); return; }
+        int i = s.length();
+        int digit = digits[i] - '0';
+        for (char letter : dict[digit].toCharArray()) {
+            backtrack(combos, digits, s + Character.toString(letter), dict);
         }
     }
-
 }
