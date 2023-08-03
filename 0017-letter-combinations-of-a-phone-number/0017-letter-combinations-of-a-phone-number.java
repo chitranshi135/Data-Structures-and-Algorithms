@@ -1,9 +1,11 @@
 class Solution {
     public List<String> letterCombinations(String digits) {
+        
+        if(digits.length() == 0)
+            return new ArrayList<>();
         String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> ans = new ArrayList<>();
-        if(digits.length() == 0)
-            return ans;
+        
         combine(comb, "", digits.toCharArray(), 0, ans);
         return ans;
     }
