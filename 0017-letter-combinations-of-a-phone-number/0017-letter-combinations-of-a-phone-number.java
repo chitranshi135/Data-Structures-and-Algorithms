@@ -1,29 +1,24 @@
 class Solution {
+    final String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     public List<String> letterCombinations(String digits) {
         List<String> ans = new ArrayList<>();
-        String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         if(digits.length() == 0)
             return ans;
-        ans.add("");
-        for(int i = 0; i < digits.length(); i++)
-        {
-            int j = digits.charAt(i)-'0';
-            ans = combine(ans, comb[j]);
-        }
+        combine("", digits, 0, ans);
         return ans;
     }
     
-    public List<String> combine(List<String> ans, String chars) {
-        List<String> list = new ArrayList<>();
+    public void combine(String prefix, String digits, int idx, List<String> ans) {
+        if(idx >= digits.length())
+        {
+            ans.add(prefix);
+            return;
+        }
+        String chars = comb[digits.charAt(idx)-'0'];
         for(int i = 0; i < chars.length(); i++)
         {
-            char ch = chars.charAt(i);
-            for(String s : ans)
-            {
-                list.add(s+ch);
-            }
+            combine(prefix+chars.charAt(i), digits, idx+1, ans);
         }
-        return list;
     }
 
 }
