@@ -1,14 +1,14 @@
 class Solution {
-    final String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     public List<String> letterCombinations(String digits) {
+        String[] comb = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
         List<String> ans = new ArrayList<>();
         if(digits.length() == 0)
             return ans;
-        combine("", digits.toCharArray(), 0, ans);
+        combine(comb, "", digits.toCharArray(), 0, ans);
         return ans;
     }
     
-    public void combine(String prefix, char[] digits, int idx, List<String> ans) {
+    public void combine(String[] comb, String prefix, char[] digits, int idx, List<String> ans) {
         if(idx == digits.length)
         {
             ans.add(prefix);
@@ -17,7 +17,7 @@ class Solution {
         String chars = comb[digits[idx]-'0'];
         for(char ch : chars.toCharArray())
         {
-            combine(prefix+ch, digits, idx+1, ans);
+            combine(comb, prefix+ch, digits, idx+1, ans);
         }
     }
 
