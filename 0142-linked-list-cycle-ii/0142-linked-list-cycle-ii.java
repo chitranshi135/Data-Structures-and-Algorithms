@@ -18,12 +18,15 @@ public class Solution {
             if(fast == slow)
                 break;
         }
+        //cycle not found
+        //end of list reached
         if (fast == null || fast.next == null) 
             return null;
-        while(head != slow){
+        fast = head;
+        while(fast != slow){
             slow = slow.next;
-            head = head.next;
+            fast = fast.next;
         }
-        return head;
+        return slow;
     }
 }
