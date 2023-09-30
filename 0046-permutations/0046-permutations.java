@@ -5,6 +5,7 @@ class Solution {
         return ans;
     }
     
+    //trying out all elements from idx to n-1 at position idx by swapping
     public void permutation(int[] nums, int idx, List<List<Integer>> ans){
         if(idx == nums.length)
         {
