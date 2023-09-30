@@ -7,6 +7,8 @@ class Solution {
         return ans;
     }
     
+    //each depth decides element at index = depth
+    //so at each depth, we try for all elements that haven't already been used
     public void permutation(int[] nums, boolean[] taken, List<Integer> list, List<List<Integer>> ans){
         if(list.size() == nums.length)
         {
