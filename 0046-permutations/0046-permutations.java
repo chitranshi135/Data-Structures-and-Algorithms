@@ -1,31 +1,31 @@
 class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        List<Integer> list = new ArrayList<>();
         List<List<Integer>> ans = new ArrayList<>();
-        boolean[] taken = new boolean[nums.length];
-        permutation(nums, taken, list, ans);
+        permutation(nums, 0, ans);
         return ans;
     }
     
-    //each depth decides element at index = depth
-    //so at each depth, we try for all elements that haven't already been used
-    public void permutation(int[] nums, boolean[] taken, List<Integer> list, List<List<Integer>> ans){
-        if(list.size() == nums.length)
+    public void permutation(int[] nums, int idx, List<List<Integer>> ans){
+        if(idx == nums.length)
         {
-            ans.add(new ArrayList<>(list));
+            List<Integer> list = new ArrayList<>();
+            for(int i = 0; i < nums.length; i++)
+                list.add(nums[i]);
+            ans.add(list);
             return;
         }
         
-        for(int i = 0; i < nums.length; i++)
+        for(int i = idx; i < nums.length; i++)
         {
-            if(!taken[i])
-            {
-                taken[i] = true;
-                list.add(nums[i]);
-                permutation(nums, taken, list, ans);
-                list.remove(list.size()-1);
-                taken[i] = false;
-            }
+            int temp = nums[idx];
+            nums[idx] = nums[i];
+            nums[i] = temp;
+            
+            permutation(nums, idx+1, ans);
+            
+            temp = nums[idx];
+            nums[idx] = nums[i];
+            nums[i] = temp;
         }
     }
 }
