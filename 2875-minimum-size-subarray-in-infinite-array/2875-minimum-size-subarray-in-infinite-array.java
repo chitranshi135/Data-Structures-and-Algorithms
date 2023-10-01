@@ -18,17 +18,17 @@ class Solution {
         long sum = 0;
         while(j < l)
         {
-            while(j < l && sum + nums[j%n] <= target)
+            sum += nums[j%n];
+            while(i < l && sum > target)
             {
-                sum += nums[j%n];
-                j++;
+                sum -= nums[i%n];
+                i++;
             }
             //System.out.println(i+" "+j+" "+sum);
             if(sum == target)
-                min = Math.min(min, j-i);
+                min = Math.min(min, j-i+1);
             
-            sum -= nums[i%n];
-            i++; 
+            j++; 
         }
         return (min == Integer.MAX_VALUE) ? -1 : min+ans;
     }
