@@ -5,7 +5,7 @@ class Solution {
         for(int i = 0; i < n; i++)
             tot += nums[i];
         int ans = 0;
-        if(target > (long)tot)
+        if(target > tot)
         {
             ans = (int)(target/tot) * n;
             target = (int)(target % tot);
