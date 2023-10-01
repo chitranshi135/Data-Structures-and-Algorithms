@@ -10,6 +10,8 @@ class Solution {
             ans = (int)(target/tot) * n;
             target = (int)(target % tot);
         }
+        if(target == 0)
+            return ans;
         int i = 0, j = 0;
         int min = Integer.MAX_VALUE;
         int l = 2*n;
