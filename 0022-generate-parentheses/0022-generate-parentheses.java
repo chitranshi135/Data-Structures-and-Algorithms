@@ -35,16 +35,21 @@ class Solution {
         {
             if(brackets[i] > 0)
             {
-                brackets[i]--;
                 if(i == 0)
                 {
-                    solve(brackets, curr+"(", ans, n);
+                    if(brackets[1] >= brackets[0])
+                    {
+                        brackets[i]--;
+                        solve(brackets, curr+"(", ans, n);
+                        brackets[i]++;
+                    }
                 }
                 else
                 {
+                    brackets[i]--;
                     solve(brackets, curr+")", ans, n);
+                    brackets[i]++;
                 }
-                brackets[i]++;
             }
         }
     }
