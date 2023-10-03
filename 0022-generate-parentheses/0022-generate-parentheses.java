@@ -26,7 +26,6 @@ class Solution {
     {
         if(curr.length() == 2*n)
         {
-            //if(isValid(curr))
             ans.add(curr);
             return;
         }
