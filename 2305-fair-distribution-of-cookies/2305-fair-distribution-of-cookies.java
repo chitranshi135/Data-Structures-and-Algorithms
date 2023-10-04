@@ -1,25 +1,31 @@
 class Solution {
-    int ans = Integer.MAX_VALUE;
-    int count[];
+    int[] curr;
+    int res = Integer.MAX_VALUE;
     public int distributeCookies(int[] cookies, int k) {
-        count = new int[k];
-        backtrack(cookies, 0, k);
-        return ans;
+        curr = new int[k];
+        solve(0, cookies);
+        return res;
     }
-
-    public void backtrack(int[] cookies, int index, int k) {
-        if(cookies.length == index) {
+    
+    public void solve(int idx, int[] cookies) {
+        if(idx == cookies.length)
+        {
             int max = 0;
-            for(int i = 0; i < k; i++) max = Math.max(max, count[i]);
-            ans = Math.min(ans, max);
+            for(int x: curr)
+                max = Math.max(max, x);
+            res = Math.min(res, max);
             return;
         }
-        for(int i = 0; i < k; i++) {
-            count[i] += cookies[index];
-            backtrack(cookies, index + 1, k);
-            count[i] -= cookies[index];
-            if(count[i] == 0) break;
+        
+        for(int i = 0; i < curr.length; i++)
+        {
+            curr[i] += cookies[idx];
+            if(curr[i] < res)
+                solve(idx+1, cookies);
+            curr[i] -= cookies[idx];
+            //remove repeating subset
+            if(curr[i] == 0)
+                break;
         }
-        return;
     }
 }
