@@ -19,7 +19,8 @@ class Solution {
         for(int i = 0; i < curr.length; i++)
         {
             curr[i] += cookies[idx];
-            solve(idx+1, cookies, curr, res);
+            if(curr[i] < res[0])
+                solve(idx+1, cookies, curr, res);
             curr[i] -= cookies[idx];
         }
     }
