@@ -12,8 +12,6 @@ class Solution {
             res[0] = Math.min(res[0], max);
             return;
         }
-        if(max > res[0])
-            return;
         
         for(int i = 0; i < curr.length; i++)
         {
