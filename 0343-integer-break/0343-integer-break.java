@@ -3,20 +3,16 @@ class Solution {
         int[] dp = new int[59];
         if(n <= 3)
             return n-1;
-        return solve(n, dp);
-    }
-    
-    public int solve(int n, int[] dp) {
-        if(n <= 3){
-            return n;
+        dp[1] = 1;
+        dp[2] = 2;
+        dp[3] = 3;
+        for(int i = 4; i <= n; i++){
+            int max = i;
+            for(int j = 1; j < i; j++){
+                max = Math.max(max, j*dp[i-j]);
+            }
+            dp[i] = max;
         }
-        if(dp[n] != 0)
-            return dp[n];
-        int max = -1;
-        for(int i = 1; i <= n; i++) {
-            max = Math.max(max, i*solve(n-i, dp));
-        }
-        
-        return dp[n] = max;
+        return dp[n];
     }
 }
