@@ -15,28 +15,23 @@
  */
 class Solution {
     public TreeNode reverseOddLevels(TreeNode root) {
-    Queue<TreeNode> q = new LinkedList<>();
-    q.add(root);
-    int cnt = 0;
-    for (; q.size() > 0; cnt++) {
-        int n = q.size();
-        int[] level = new int[n];
-
-        //get values of all nodes of current level
-        for (int i = 0; i < n; ++i) {
-            var node = q.remove();
-            level[i] = node.val;
-            q.add(node); //push back again
+    if (root != null) {
+           traverse(root.left, root.right, 1);
         }
-
-        //put the values from in reverse in nodes if its odd level
-        for (int i = n - 1; i >= 0; i--) {
-            var node = q.remove();
-            if (cnt == 0 || (cnt & 1) == 1) node.val = level[i];
-            if (node.left != null) q.add(node.left);
-            if (node.right != null) q.add(node.right);
-        }
+        return root;
     }
-    return root;
-}
+    
+    public void traverse(TreeNode node1, TreeNode node2, int lvl) {
+        if (node1 == null || node2 == null) {
+            return;
+        }
+        if (lvl % 2 == 1){
+            int temp = node1.val;
+            node1.val = node2.val;
+            node2.val = temp;
+        }
+
+        traverse(node1.left, node2.right, lvl + 1);
+        traverse(node1.right, node2.left, lvl + 1);
+    }
 }
