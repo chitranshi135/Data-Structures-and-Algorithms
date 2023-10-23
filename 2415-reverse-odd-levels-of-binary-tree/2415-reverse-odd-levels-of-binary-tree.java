@@ -15,32 +15,28 @@
  */
 class Solution {
     public TreeNode reverseOddLevels(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int l = 0;
-        while(!q.isEmpty()) {
-            int count = q.size();
-            Queue<TreeNode> temp = new LinkedList<>();
-            Stack<Integer> stack = new Stack<>();
-            for(int i = 1; i <= count; i++){
-                TreeNode node = q.poll();
-                if(l % 2 == 1){
-                    temp.offer(node);
-                    stack.push(node.val);
-                }
-                if(node.left != null)
-                    q.offer(node.left);
-                if(node.right != null)
-                    q.offer(node.right);
-            }
-            if(l % 2 == 1){
-                while(!temp.isEmpty()){
-                    TreeNode node = temp.poll();
-                    node.val = stack.pop();
-                }
-            }
-            l++;
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    int cnt = 0;
+    for (; q.size() > 0; cnt++) {
+        int n = q.size();
+        int[] level = new int[n];
+
+        //get values of all nodes of current level
+        for (int i = 0; i < n; ++i) {
+            var node = q.remove();
+            level[i] = node.val;
+            q.add(node); //push back again
         }
-        return root;
+
+        //put the values from in reverse in nodes if its odd level
+        for (int i = n - 1; i >= 0; i--) {
+            var node = q.remove();
+            if (cnt == 0 || (cnt & 1) == 1) node.val = level[i];
+            if (node.left != null) q.add(node.left);
+            if (node.right != null) q.add(node.right);
+        }
     }
+    return root;
+}
 }
