@@ -1,5 +1,8 @@
 class Solution {
     public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
+        if (k == 0) {
+			return nums.get(0);
+		}
         int sum = 0;
         for(int i = 0; i < nums.size(); i++){
             int curr = nums.get(i);
