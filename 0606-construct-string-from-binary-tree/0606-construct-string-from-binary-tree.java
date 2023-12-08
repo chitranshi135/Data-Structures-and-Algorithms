@@ -23,18 +23,21 @@ class Solution {
             return "";
         StringBuilder curr = new StringBuilder();
         curr.append(String.valueOf(root.val));
-        if(root.left != null || root.right != null){
-            String left = dfs(root.left);
-            curr.append("(");
-            curr.append(left);
-            curr.append(")");
+        if(root.left == null && root.right == null)
+            return curr.toString();
+        
+        String left = dfs(root.left);
+        curr.append("(");
+        curr.append(left);
+        curr.append(")");
+            
+        if(root.right != null){
             String right = dfs(root.right);
-            if(right.length() > 0){
-                curr.append("(");
-                curr.append(right);
-                curr.append(")");
-            }
+            curr.append("(");
+            curr.append(right);
+            curr.append(")");
         }
+        
         return curr.toString();
     }
 }
