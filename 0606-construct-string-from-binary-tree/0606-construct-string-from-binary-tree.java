@@ -21,14 +21,20 @@ class Solution {
     public String dfs(TreeNode root){
         if(root == null)
             return "";
-        String curr = String.valueOf(root.val);
+        StringBuilder curr = new StringBuilder();
+        curr.append(String.valueOf(root.val));
         if(root.left != null || root.right != null){
             String left = dfs(root.left);
-            curr = curr + "(" + left + ")";
+            curr.append("(");
+            curr.append(left);
+            curr.append(")");
             String right = dfs(root.right);
-            if(right.length() > 0)
-                curr = curr + "(" + right + ")";
+            if(right.length() > 0){
+                curr.append("(");
+                curr.append(right);
+                curr.append(")");
+            }
         }
-        return curr;
+        return curr.toString();
     }
 }
