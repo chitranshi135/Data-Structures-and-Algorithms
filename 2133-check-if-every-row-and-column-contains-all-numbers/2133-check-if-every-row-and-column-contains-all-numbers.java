@@ -2,16 +2,18 @@ class Solution {
     public boolean checkValid(int[][] matrix) {
         int n = matrix.length;
         for(int i = 0; i < n; i++){
-            Set<Integer> row = new HashSet<>();
-            Set<Integer> col = new HashSet<>();
-            for(int j = 0; j < n; j++){
-                if(matrix[i][j] >= 1 && matrix[i][j] <= n)
-                    row.add(matrix[i][j]);
-                if(matrix[j][i] >= 1 && matrix[j][i] <= n)
-                    col.add(matrix[j][i]);
+            int[] fr = new int[n+1];
+            int[] fc = new int[n+1];
+            
+            for(int j=0;j<n;j++){
+                fr[matrix[i][j]]++;
+                fc[matrix[j][i]]++;
             }
-            if(row.size() < n || col.size() < n)
-                return false;
+            
+            for(int s=1;s<=n;s++){
+                if(fr[s]!=1 || fc[s]!=1)
+                    return false;
+            }
         }
         return true;
     }
