@@ -19,7 +19,7 @@ class Solution {
             //we can choose to start the subarray from any any point between 
             //0 and i-1
             //thus we have i subarrays
-            res += (long)i;
+            res += (long)(i);
         }
         return res;
     }
