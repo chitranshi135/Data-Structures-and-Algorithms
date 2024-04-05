@@ -7,12 +7,8 @@ class Solution {
                 stack.push(s.charAt(i));
             else{
                 char top = stack.peek();
-                boolean isFirstUpperCase = Character.isUpperCase(top);
-                int firstChar = isFirstUpperCase ? top-'A' : top-'a';
-                boolean isSecondUpperCase = Character.isUpperCase(s.charAt(i));
-                int secondChar = isSecondUpperCase ? s.charAt(i)-'A' : s.charAt(i)-'a';
                 
-                if(firstChar == secondChar && isFirstUpperCase != isSecondUpperCase)
+                if(Math.abs(top-s.charAt(i)) == 32)
                     stack.pop();
                 else
                     stack.push(s.charAt(i));
