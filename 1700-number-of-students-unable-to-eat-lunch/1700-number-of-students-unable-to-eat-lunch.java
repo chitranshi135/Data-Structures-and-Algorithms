@@ -1,25 +1,27 @@
 class Solution {
     public int countStudents(int[] students, int[] sandwiches) {
-        Queue<Integer> queue = new LinkedList<>();
-        Stack<Integer> stack = new Stack<>();
-        
-        for(int i = 0; i < students.length; i++){
-            queue.offer(students[i]);
-            stack.push(sandwiches[students.length-1-i]);
+        int circleStudent = 0;
+        int squareStudent = 0;
+        for(int x: students)
+        {
+            if(x == 0)
+                circleStudent++;
+            else
+                squareStudent++;
         }
         
-        int skip = 0;
-        while(!queue.isEmpty() && skip < queue.size()){
-            if(queue.peek() == stack.peek()){
-                queue.poll();
-                stack.pop();
-                skip = 0;
-            }
-            else{
-                queue.offer(queue.poll());
-                skip++;
-            }
+        for(int s: sandwiches){
+            // No student wants the square sandwich on top of the stac
+            if(s == 0 && circleStudent == 0)
+                return squareStudent;
+            // No student wants the square sandwich on top of the stac
+            else if(s == 1 && squareStudent == 0)
+                return circleStudent;
+            else if(s == 0 && circleStudent > 0)
+                circleStudent--;
+            else if(s == 1 && squareStudent > 0)
+                squareStudent--;
         }
-        return queue.size();
+        return 0;
     }
 }
